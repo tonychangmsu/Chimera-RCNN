@@ -1,0 +1,31 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+Prototyping of the initial wood-supply RCNN called tsNet was developed.
+
+## [0.1.0] - 2018-04-18
+Scripts including, data processing, model contruction, model fitting and diagnostics, prediction data preprocessing, prediction, and postprocessing for a recurrent neural network to determine total timber biomass at a end 30m resolution.
+
+## [0.1.1] - 2018-04-24
+Changed the format of Jupyter notebooks for better documentation and workflow. Model now runs in entirety with all four predictor variables (NAIP, DEM, CLIMATE, LANDSAT). Results are questionable still due to 3 factors to be addressed in the new version
+Issues:
+1. Climate and DEM resolution are very coarse, resulting in a coarse pixel prediction that feels incorrect.
+2. Training data needs to be augmented in one form or another to add robustness and allow flexibility in the model to predict on new unseen data.
+3. Need to integrate additional response variables, specifically Quadratic Mean Diameter so that collaborators can use the data for scenario planning.
+
+## [0.1.5] - 2018-05-21
+Changed the preprocessing of data within the first 1-4 Jupyter notebooks. Eventually, will move these notebooks to raw .py scripts. New notebooks do not use the original ./src files to build dataset. Uses a simplified system that is faster for initial data processing, that gathers the NAIP files and preprocess the LANDSAT data and stores in a folder where all data is accessed/called by their UID. Also, independent of the data scripts, training data is much better in that they have been preprocessed through manual interpretation from Chang and Rasmussen for no tree data. This improves accuracy substantially.
+Future Issues:
+1. Fit model on a more balanced dataset. There is concern that heavily balanced data towards 0 or no tree, is biasing the model.
+2. Add DEM and climate data. Climate data as a 30 year series, seems like too much complexity.
+
+## [0.2.0] - 2018-06-13
+Discovered problem with bidirectional reflectance and stitching with NAIP imagery is exascebated using 4 channel training data. Furthermore, climate data and DEM data does not aid the predictions.
+1. Latest fitted predictions using only NAIP. Model dated 06112018
+
+## [0.3.0] - 2018-06-27
+Delivered two versions of the model. Model dated 06112018 "noted as 06122018 in filesystem", that is a 3 channel NAIP imagery based model. This model is fairly robust but does not incorporate Climate and DEM metrics. The problem with this model is that it overestimates values for woodland species. However, an older model from 05102018, did not have this issue. To compensate for this problem, we combine the output from the 05102018 biomass model with the other outputs from the 06112018 model. In future versions, it might be beneficial to perform model averaging, however it is suspected that there is training error issues for woodland species. Will ask technician to remove woodland species biomass? Other issue include removing the many .ipynb files and converting them to .py files.
+
+## [1.0.0] - 2018-12-17
+This is the version of the code that was submitted to RSE. So far, this works within the Central Sierra Nevada region, but we are now building a new dataset that encompasses FIA plots from the remainder of the 11 Western States.
